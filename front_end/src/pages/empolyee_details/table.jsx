@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import Modal from '../../components/model';
+import EmployeeForm from './form';
 
 function Table() {
 
     const [employeedata, setEmployeedata] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
     useEffect(() => {
         axios.get("http://localhost:8000/employee_details")
@@ -23,7 +29,7 @@ function Table() {
             <div className='w-[80%] mx-auto'>
                 <div className='flex justify-between py-3'>
                     <h1 className='text-[28px] font-[600]'>Employee Details</h1>
-                    <button className='border rounded-lg outline-none h-8 px-3 my-auto text-[#fff] font-[500] bg-[green] hover:bg-[#008000d7]'>Add +</button>
+                    <button onClick={openModal} className='border rounded-lg outline-none h-8 px-3 my-auto text-[#fff] font-[500] bg-[green] hover:bg-[#008000d7]'>Add +</button>
                 </div>
                 <table className='w-full border'>
                     <thead className='bg-[grey] text-white'>
@@ -55,6 +61,8 @@ function Table() {
                     </tbody>
                 </table>
             </div>
+
+            <Modal showModal={showModal} closeModal={closeModal} title={"Create Employee Details"} widgets={<EmployeeForm closeModal={closeModal}/>}/>
         </div>
     )
 }

@@ -7,7 +7,7 @@ router.get("/",FindAllEmployee);
 
 router.get("/:id",FindEmployee);
 
-router.post("/",NewEmployee);
+router.post("/create/",NewEmployee);
 
 router.put("/:id",UpdateEmployee)
 
